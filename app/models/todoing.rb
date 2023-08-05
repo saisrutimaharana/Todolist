@@ -1,0 +1,2 @@
+class Todoing < ApplicationRecord
+end
