@@ -1,12 +1,4 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-</title>TODO</title>
-<link rel="stylesheet" href="first.css">
-</head>
-<body>
-    <!DOCTYPE html>
 <html>
 <head>
     <title>Todo List</title>
@@ -26,9 +18,6 @@
         }
         .todo-item input[type="checkbox"] {
             margin-right: 10px;
-        }
-        .todo-item span {
-            flex-grow: 1;
         }
         .todo-item.completed span {
             text-decoration: line-through;
@@ -50,26 +39,56 @@
 <body>
     <div class="todo-container">
         <h1>Todo List</h1>
-        <div class="todo-items">
-            <div class="todo-item">
-                <input type="checkbox">
-                <span>Task 1</span>
-            </div>
-            <div class="todo-item completed">
-                <input type="checkbox" checked>
-                <span>Task 2 (Completed)</span>
-            </div>
-            <div class="todo-item">
-                <input type="checkbox">
-                <span>Task 3</span>
-            </div>
+        <div class="todo-items" id="todoItems">
+            <!-- Tasks will be added here dynamically using JavaScript -->
         </div>
         <div class="todo-form">
-            <input type="text" placeholder="Enter a new task">
-            <button>Add</button>          
+            <input type="text" id="newTask" placeholder="Enter a new task">
+            <button onclick="addTask()">Add</button>
         </div>
+    </div>
+    
+    <script>
+        function addTask() {
+            const newTaskInput = document.getElementById('newTask');
+            const taskText = newTaskInput.value.trim();
+            
+            if (taskText !== '') {
+                const todoItems = document.getElementById('todoItems');
+                const taskItem = document.createElement('div');
+                taskItem.className = 'todo-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.onclick = toggleCompleted;
+                
+                const taskSpan = document.createElement('span');
+                taskSpan.textContent = taskText;
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = removeTask;
+                
+                taskItem.appendChild(checkbox);
+                taskItem.appendChild(taskSpan);
+                taskItem.appendChild(removeButton);
+                
+                todoItems.appendChild(taskItem);
+                
+                newTaskInput.value = '';
+            }
+        }
+        
+        function toggleCompleted() {
+            const taskSpan = this.nextElementSibling;
+            taskSpan.classList.toggle('completed');
+        }
+        
+        function removeTask() {
+            const taskItem = this.parentElement;
+            const todoItems = document.getElementById('todoItems');
+            todoItems.removeChild(taskItem);
+        }
+    </script>
 </body>
 </html>
-
-</body>
-</html>            
