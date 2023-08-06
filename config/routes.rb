@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :todoings
   root 'todoings#index'  
-  resources 'user_permissions'
 end

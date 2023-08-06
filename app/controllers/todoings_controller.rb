@@ -1,6 +1,7 @@
 class TodoingsController < ApplicationController
+    before_action :authenticate_user!
     def index 
-        @todoings= Todoing.all
+        @todoings= current_user.todoings.all
     end
 
     def show
@@ -8,11 +9,11 @@ class TodoingsController < ApplicationController
     end
 
     def new
-        @todoing=Todoing.new
+        @todoing=cureent_user.todoings.build
     end
 
     def create
-        @todoing=Todoing.new(todoing_params)
+        @todoing=current_user.todoings.build(todoing_params)
         if @todoing.save
             redirect_to_@todoing
         else
@@ -20,8 +21,17 @@ class TodoingsController < ApplicationController
         end
     end
 
+    def update
+        if @todoing.update(todoing_params)
+          redirect_to todoing_path(@todoing)
+        else
+          render :edit
+        end
+    end
+     
     def destroy
     end
+
 
     private
     def todoing_params

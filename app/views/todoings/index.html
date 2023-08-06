@@ -40,7 +40,13 @@
     <div class="todo-container">
         <h1>Todo List</h1>
         <div class="todo-items" id="todoItems">
-            <!-- Tasks will be added here dynamically using JavaScript -->
+            <% @todos.each do |todo| %>
+                <div class="todo-item <%= 'completed' if todo.completed %>">
+                <%= link_to 'Toggle', toggle_todo_path(todo), method: :patch, class: 'toggle-completed' %>
+                <span><%= todo.task %></span>
+                <%= link_to 'Remove', todo, method: :delete, class: 'remove-button' %>
+                </div>
+            <% end %>
         </div>
         <div class="todo-form">
             <input type="text" id="newTask" placeholder="Enter a new task">
@@ -48,47 +54,9 @@
         </div>
     </div>
     
-    <script>
-        function addTask() {
-            const newTaskInput = document.getElementById('newTask');
-            const taskText = newTaskInput.value.trim();
-            
-            if (taskText !== '') {
-                const todoItems = document.getElementById('todoItems');
-                const taskItem = document.createElement('div');
-                taskItem.className = 'todo-item';
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.onclick = toggleCompleted;
-                
-                const taskSpan = document.createElement('span');
-                taskSpan.textContent = taskText;
-                
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = removeTask;
-                
-                taskItem.appendChild(checkbox);
-                taskItem.appendChild(taskSpan);
-                taskItem.appendChild(removeButton);
-                
-                todoItems.appendChild(taskItem);
-                
-                newTaskInput.value = '';
-            }
-        }
-        
-        function toggleCompleted() {
-            const taskSpan = this.nextElementSibling;
-            taskSpan.classList.toggle('completed');
-        }
-        
-        function removeTask() {
-            const taskItem = this.parentElement;
-            const todoItems = document.getElementById('todoItems');
-            todoItems.removeChild(taskItem);
-        }
-    </script>
+    
+
+    
+
 </body>
 </html>
