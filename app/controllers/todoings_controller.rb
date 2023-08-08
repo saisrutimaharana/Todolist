@@ -1,7 +1,8 @@
 class TodoingsController < ApplicationController
     before_action :authenticate_user!
     def index 
-        @todoings= current_user.todoings.all
+        @todoings = Todoing.all
+        @todoing = Todoing.new
     end
 
     def show
@@ -9,17 +10,19 @@ class TodoingsController < ApplicationController
     end
 
     def new
-        @todoing=cureent_user.todoings.build
+        @todoing=current_user.todoings.build
     end
 
     def create
-        @todoing=current_user.todoings.build(todoing_params)
+        @todoing = Todoing.new(todoing_params)
         if @todoing.save
-            redirect_to_@todoing
+          redirect_to todoings_path, notice: 'Todo was successfully created.'
         else
-            render 'new'
+          @todoings = Todoing.all
+          render :index
         end
-    end
+      end
+      
 
     def update
         if @todoing.update(todoing_params)
@@ -28,13 +31,24 @@ class TodoingsController < ApplicationController
           render :edit
         end
     end
+    
+    def toggle
+      @todoing = Todoing.find(params[:id])
+      @todoing.update(completed: !@todoing.completed)
+      redirect_to todoings_path, notice: 'Todo status updated.'
+    end  
      
     def destroy
+      @todoing = Todoing.find(params[:id])
+      @todoing.destroy
+      redirect_to todoings_path, notice: 'Todo was successfully removed.'
+  
     end
-
+    
+       
 
     private
     def todoing_params
-        params.required(:todoing).permit(:title,:content)
+        params.required(:todoing).permit(:task,:completed)
     end
 end

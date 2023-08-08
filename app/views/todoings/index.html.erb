@@ -5,58 +5,83 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
+
         .todo-container {
             max-width: 400px;
-            margin: 0 auto;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
         }
+
         .todo-item {
             display: flex;
             align-items: center;
             padding: 8px;
             border-bottom: 1px solid #ccc;
         }
-        .todo-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
+
         .todo-item.completed span {
             text-decoration: line-through;
-            color: #999;
+            color: gray;
         }
+
         .todo-form {
             display: flex;
             margin-top: 20px;
         }
+
         .todo-form input[type="text"] {
             flex-grow: 1;
             padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            outline: none;
         }
+
         .todo-form button {
             padding: 8px;
+            background-color: #007bff;
+            color:  #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
         }
+
+        .todo-form button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <body>
     <div class="todo-container">
         <h1>Todo List</h1>
         <div class="todo-items" id="todoItems">
-            <% @todos.each do |todo| %>
+            <% @todoings.each do |todo| %>
                 <div class="todo-item <%= 'completed' if todo.completed %>">
                 <%= link_to 'Toggle', toggle_todo_path(todo), method: :patch, class: 'toggle-completed' %>
                 <span><%= todo.task %></span>
                 <%= link_to 'Remove', todo, method: :delete, class: 'remove-button' %>
                 </div>
             <% end %>
-        </div>
-        <div class="todo-form">
-            <input type="text" id="newTask" placeholder="Enter a new task">
-            <button onclick="addTask()">Add</button>
-        </div>
-    </div>
-    
-    
+        
 
-    
+        </div>
+            <div class="todo-form">
+                <%= form_for @todoing do |f| %>
+                    <%= f.text_field :task, placeholder: 'Enter a new task', id: 'newTask' %>
+                    <%= f.submit 'Add', class: 'add-button' %>
+                <% end %>
+            </div>
+
+    </div> 
+     
 
 </body>
 </html>
