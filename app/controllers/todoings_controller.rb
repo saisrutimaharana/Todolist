@@ -14,7 +14,7 @@ class TodoingsController < ApplicationController
     end
 
     def create
-        @todoing = Todoing.new(todoing_params)
+        @todoing = current_user.Todoing.new(todoing_params)
         if @todoing.save
           redirect_to todoings_path, notice: 'Todo was successfully created.'
         else
@@ -45,7 +45,11 @@ class TodoingsController < ApplicationController
   
     end
     
-       
+    def log_ou
+      sign_out(current_user)
+      redirect_to root_path, notice: "Logged out successfully" 
+    end
+      
 
     private
     def todoing_params
