@@ -1,0 +1,13 @@
+<%= form_for(todoing) do |f| %>
+    <div class="field">
+       <%=f.label :title %>
+       <%=f.text_field :title %>
+    </div>
+    <div class="field">
+        <%=f.label :competed %>
+        <%=f.check_box :completed%>
+    </div>
+    <div class="actoins">
+        <%=f.submit %>
+    </div>
+<% end %>
