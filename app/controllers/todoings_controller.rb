@@ -45,11 +45,11 @@ class TodoingsController < ApplicationController
   
     end
     
-    def log_ou
+    def log_out
       sign_out(current_user)
       redirect_to root_path, notice: "Logged out successfully" 
     end
-      
+
 
     private
     def todoing_params

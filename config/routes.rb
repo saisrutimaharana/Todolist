@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :todoings
-  root 'todoings#index'  
   resources :todoings do
-    collection do 
-      get :log_out
+    member do
+      delete :log_out
+    
     end
   end
+
+  root 'todoings#index'  
+  
+
 end

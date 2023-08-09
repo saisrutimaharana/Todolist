@@ -82,7 +82,7 @@
             </div>
 
     </div> 
-    <li><%= link_to 'Log Out', log_out_todoings_path, method:get %></li>
+    <li><%= link_to 'Log Out', log_out_todoing_path(current_todoing), method: :delete %></li>
 
 </body>
 </html>
