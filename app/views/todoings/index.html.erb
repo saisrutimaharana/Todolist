@@ -61,22 +61,28 @@
 </head>
 <body>
     <div class="todo-container">
-        <h1>To-Do List</h1>
-
-        <ul>
+        <h1>Todo List</h1>
+        <div class="todo-items" id="todoItems">
             <% @todoings.each do |todoing| %>
-                <li>
-                    <%= task.title %>
-                    <%= link_to 'Edit', edit_todoing_path(todoing) %>
-                    <%= link_to 'Delete', todoing_path(todoing), method: :delete, data: { confirm: 'Are you sure?' } %>
-                </li>
+                <div class="todo-item <%= 'completed' if todoing.completed %>">
+                <%= link_to 'Toggle', toggle_todoing_path(todoing), method: :patch, class: 'toggle-completed' %>
+                <span><%= todoing.task %></span>
+                <%= link_to 'Remove', todoing, method: :delete, class: 'remove-button' %>
+                </div>
             <% end %>
-        </ul>
+        
 
-        <%= link_to 'New Task', new_todoing_path %>
+        </div>
+            <div class="todo-form">
+                <%= form_for @todoing do |f| %>
+                    <%= f.text_field :task, placeholder: 'Enter a new task', id: 'newTask' %>
+                    <%= f.submit 'Add', class: 'add-button' %>
+                    
+                <% end %>
+            </div>
 
+    </div> 
+    <li><%= link_to 'Log Out', destroy_user-session_path, method: :delete %></li>
 
-    </div> <
-   
 </body>
 </html>

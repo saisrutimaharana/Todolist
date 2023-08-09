@@ -1,48 +1,54 @@
 class TodoingsController < ApplicationController
-  def index
-    @todoings = Todoing.all
-    @todoing = Todoing.new
-  end
-
-  def new
-    @todoing = current_user.todoings.build
-  end
-
-  def todoing()
-
-  end
-
-  def create
-    @todoing = Todoing.new(todoing_params)
-    if @todoing.save
-      redirect_to todoings_path, notice: 'Todoing was successfully created.'
-    else
-      render :new
+    before_action :authenticate_user!
+    def index 
+        @todoings = Todoing.all
+        @todoing = Todoing.new
     end
-  end
 
-  def edit
-    @todoing = Todoing.find(params[:id])
-  end
-
-  def update
-    @todoing = Todoing.find(params[:id])
-    if @todoing.update(todoing_params)
-      redirect_to todoings_path, notice: 'Todoing was successfully updated.'
-    else
-      render :edit
+    def show
+        @todoing=Todoing.find(params[:id])
     end
-  end
 
-  def destroy
-    @todoing = Todoing.find(params[:id])
-    @todoing.destroy
-    redirect_to todoings_path, notice: 'Todoing was successfully deleted.'
-  end
+    def new
+        @todoing=current_user.todoings.build
+    end
 
-  private
+    def create
+        @todoing = Todoing.new(todoing_params)
+        if @todoing.save
+          redirect_to todoings_path, notice: 'Todo was successfully created.'
+        else
+          @todoings = Todoing.all
+          render :index
+        end
+      end
+      
 
-  def todoing_params
-    params.require(:todoing).permit(:title, :completed)
-  end
+    def update
+        if @todoing.update(todoing_params)
+          redirect_to todoing_path(@todoing)
+        else
+          render :edit
+        end
+    end
+    
+    def toggle
+      @todoing = Todoing.find(params[:id])
+      @todoing.update(completed: !@todoing.completed)
+      redirect_to todoings_path, notice: 'Todo status updated.'
+    end  
+     
+    def destroy
+      @todoing = Todoing.find(params[:id])
+      @todoing.destroy
+      redirect_to todoings_path, notice: 'Todo was successfully removed.'
+  
+    end
+    
+       
+
+    private
+    def todoing_params
+        params.required(:todoing).permit(:task,:completed)
+    end
 end
