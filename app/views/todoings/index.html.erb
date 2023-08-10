@@ -74,7 +74,7 @@
 
         </div>
             <div class="todo-form">
-                <%= form_for @todoing do |f| %>
+                <%= form_with @todoings do |f| %>
                     <%= f.text_field :task, placeholder: 'Enter a new task', id: 'newTask' %>
                     <%= f.submit 'Add', class: 'add-button' %>
                     
