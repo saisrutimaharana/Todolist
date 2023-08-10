@@ -57,15 +57,40 @@
             background-color: #0056b3;
         }
 
+       
+        .logout-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #ff0000;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        
+        .logout-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #ff0000;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+
+
+
     </style>
 </head>
 <body>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "logout-button" %>
+
+
     <div class="todo-container">
         <h1>Todo List</h1>
         <div class="todo-items" id="todoItems">
             <% @todoings.each do |todoing| %>
                 <div class="todo-item <%= 'completed' if todoing.completed %>">
-                    <%= link_to 'Toggle', toggle_todoing_path(todoing), method: :patch, class: 'toggle-completed' %>
                     <span><%= todoing.task %></span>
                     <%= link_to 'Remove', todoing, method: :delete, class: 'remove-button' %>
                 </div>
@@ -74,31 +99,15 @@
 
         </div>
             <div class="todo-form">
-                <%= form_with @todoings do |f| %>
-                    <%= f.text_field :task, placeholder: 'Enter a new task', id: 'newTask' %>
-                    <%= f.submit 'Add', class: 'add-button' %>
+                <%= form_with(model: Todoing.new, url:todoings_path, local: true) do |form| %>
+                    <%= form.text_field :task, placeholder: 'Enter your task here', id: 'newTask' %>
+                    <%= form.submit 'Add' %>
                     
                 <% end %>
             </div>
 
         
-            <div>
-                <% if session[:user_id].present? %>
-                    <%= form_tag(logout_path, method: :delete, class: 'logout-form') do %>
-                        <%= submit_tag 'Logout', class: 'logout-button' %>
-                    <% end %>
-                <% end %>
-
-                <ul>
-                    <% @todoings.each do |todoing| %>
-                        <li>
-                            <%= todoing.title %>
-                            <%= link_to 'Edit', edit_todoing_path(todoing) %>
-                            <%= link_to 'Delete', todoing_path(todoing), method: :delete, data: { confirm: 'Are you sure?' } %>
-                        </li>
-                    <% end %>
-                </ul>
-
+            
                 
             </div>
 

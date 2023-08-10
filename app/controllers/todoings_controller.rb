@@ -32,11 +32,7 @@ class TodoingsController < ApplicationController
     end
   end
     
-  def toggle
-    @todoing = Todoing.find(params[:id])
-    @todoing.update(completed: !@todoing.completed)
-    redirect_to todoings_path, notice: 'Todo status updated.'
-  end  
+  
      
   def destroy
     @todoing = Todoing.find(params[:id])
@@ -49,7 +45,7 @@ class TodoingsController < ApplicationController
 
   private
   def todoing_params
-    params.require(:todo).permit(:title, :description, :completed)
+    params.require(:todoing).permit(:task, :description,:completed)
   end
   
 end
