@@ -65,9 +65,9 @@
         <div class="todo-items" id="todoItems">
             <% @todoings.each do |todoing| %>
                 <div class="todo-item <%= 'completed' if todoing.completed %>">
-                <%= link_to 'Toggle', toggle_todoing_path(todoing), method: :patch, class: 'toggle-completed' %>
-                <span><%= todoing.task %></span>
-                <%= link_to 'Remove', todoing, method: :delete, class: 'remove-button' %>
+                    <%= link_to 'Toggle', toggle_todoing_path(todoing), method: :patch, class: 'toggle-completed' %>
+                    <span><%= todoing.task %></span>
+                    <%= link_to 'Remove', todoing, method: :delete, class: 'remove-button' %>
                 </div>
             <% end %>
         
@@ -99,7 +99,7 @@
                     <% end %>
                 </ul>
 
-                <%= link_to 'New Task', new_todoing_path %>
+                
             </div>
 
     </div> 
