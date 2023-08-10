@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :todoings do
-    member do
-      delete :log_out
-    
-    end
-  end
+  resources :todoings 
+  root 'todoings#index'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
 
-  root 'todoings#index'  
-  
 
 end

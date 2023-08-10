@@ -81,8 +81,28 @@
                 <% end %>
             </div>
 
-    </div> 
-    <li><%= link_to 'Log Out', log_out_todoing_path(current_todoing), method: :delete %></li>
+        
+            <div>
+                <% if session[:user_id].present? %>
+                    <%= form_tag(logout_path, method: :delete, class: 'logout-form') do %>
+                        <%= submit_tag 'Logout', class: 'logout-button' %>
+                    <% end %>
+                <% end %>
 
+                <ul>
+                    <% @todoings.each do |todoing| %>
+                        <li>
+                            <%= todoing.title %>
+                            <%= link_to 'Edit', edit_todoing_path(todoing) %>
+                            <%= link_to 'Delete', todoing_path(todoing), method: :delete, data: { confirm: 'Are you sure?' } %>
+                        </li>
+                    <% end %>
+                </ul>
+
+                <%= link_to 'New Task', new_todoing_path %>
+            </div>
+
+    </div> 
+    
 </body>
 </html>
