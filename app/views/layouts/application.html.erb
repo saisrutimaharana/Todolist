@@ -13,14 +13,14 @@
   <body>
     <nav>
       <% if session[:user_id].present? %>
-      <%= form_tag(logout_path, method: :delete, class: 'logout-form') do %>
-        <%= submit_tag 'Logout', class: 'logout-button' %>
+        <%= form_tag(logout_path, method: :delete, class: 'logout-form') do %>
+          <%= submit_tag 'Logout', class: 'logout-button' %>
+        <% end %>
       <% end %>
-    <% end %>
     </nav>
 
     <div class="todo_container">
-      <%= yield %>
+      <% = yield %>
     </div>
   </body>
 </html>

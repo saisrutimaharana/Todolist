@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resources :todoings 
   root 'todoings#index'
   delete '/logout', to: 'sessions#destroy', as: :logout
-
+  
 
 end

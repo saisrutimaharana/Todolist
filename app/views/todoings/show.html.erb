@@ -9,7 +9,7 @@
 
 
 <%= link_to 'Back to List', todoings_path %>
-<li></li>
+<br>
 <%= form_with(model: @todoing, method: :delete, local: true) do |form| %>
   <%= form.submit 'Remove Task', data: { confirm: 'Are you sure you want to remove this task?' } %>
 <% end %>
